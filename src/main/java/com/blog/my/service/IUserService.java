@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface IUserService extends JpaRepository<User, Long> {
+public interface IUserService {
     List<User> findAllUser();
 }
