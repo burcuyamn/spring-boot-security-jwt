@@ -6,7 +6,10 @@ import com.blog.my.service.StoryService;
 import com.blog.my.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -29,5 +32,11 @@ public class StoryController {
         User user = userService.findById(userOid);
         Story story = new Story(user, title, body, null);
         storyService.save(story);
+    }
+
+    @GetMapping("/all")
+    private ResponseEntity<List<Story>> getAll(){
+        List<Story> stories = storyService.findAll();
+       return new ResponseEntity<List<Story>>(stories, HttpStatus.OK);
     }
 }

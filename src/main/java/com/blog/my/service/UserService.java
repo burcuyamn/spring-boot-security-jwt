@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public User findById(String oid){
-        return userRepository.findById(Long.valueOf(oid)).get();
+        return userRepository.findById(oid).get();
     }
 
 }
