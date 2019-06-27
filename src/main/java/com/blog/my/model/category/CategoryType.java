@@ -1,4 +1,4 @@
-package com.blog.my.model;
+package com.blog.my.model.category;
 
 public enum  CategoryType {
     ART,

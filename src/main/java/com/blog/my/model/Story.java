@@ -1,5 +1,6 @@
 package com.blog.my.model;
 
+import com.blog.my.model.category.Category;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;

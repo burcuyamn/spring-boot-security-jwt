@@ -1,5 +1,6 @@
-package com.blog.my.model;
+package com.blog.my.model.category;
 
+import com.blog.my.model.BaseEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CATEGORY")
 @EntityListeners(AuditingEntityListener.class)
-public class Category extends BaseEntity{
+public class Category extends BaseEntity {
 
     @Column(name = "TYPE")
     @Enumerated(EnumType.STRING)
