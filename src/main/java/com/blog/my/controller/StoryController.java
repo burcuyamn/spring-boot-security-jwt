@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("story")
 public class StoryController {
@@ -22,7 +21,13 @@ public class StoryController {
     @Autowired
     private StoryService storyService;
 
-    @PostMapping
+    @GetMapping("/all")
+    private ResponseEntity<List<Story>> getAll(){
+        List<Story> stories = storyService.findAll();
+        return new ResponseEntity<List<Story>>(stories, HttpStatus.OK);
+    }
+
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     private void save(@RequestParam("userOid") String userOid,
                       @RequestParam("title") String title,
@@ -32,11 +37,5 @@ public class StoryController {
         User user = userService.findById(userOid);
         Story story = new Story(user, title, body, null);
         storyService.save(story);
-    }
-
-    @GetMapping("/all")
-    private ResponseEntity<List<Story>> getAll(){
-        List<Story> stories = storyService.findAll();
-       return new ResponseEntity<List<Story>>(stories, HttpStatus.OK);
     }
 }
