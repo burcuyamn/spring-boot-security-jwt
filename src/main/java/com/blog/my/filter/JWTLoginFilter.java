@@ -1,6 +1,6 @@
 package com.blog.my.filter;
 
-import com.blog.my.model.User;
+import com.blog.my.security.AccountCredentials;
 import com.blog.my.security.TokenAuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,22 +18,24 @@ import java.io.IOException;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    public JWTLoginFilter(String url, AuthenticationManager manager) {
+    private TokenAuthenticationService tokenAuthenticationService;
+    public JWTLoginFilter(String url, AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher(url));
-        setAuthenticationManager(manager);
+        setAuthenticationManager(authenticationManager);
+        tokenAuthenticationService = new TokenAuthenticationService();
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest arg0, HttpServletResponse arg1)
+    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
-        User user = new ObjectMapper().readValue(arg0.getInputStream(), User.class);
-        return getAuthenticationManager()
-                .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        AccountCredentials credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), AccountCredentials.class);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
+        return getAuthenticationManager().authenticate(token);
     }
-
     @Override
-    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
-        TokenAuthenticationService.addAuthentication(res, auth);
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication)
+            throws IOException, ServletException {
+        String name = authentication.getName();
+        tokenAuthenticationService.addAuthentication(response, name);
     }
 }

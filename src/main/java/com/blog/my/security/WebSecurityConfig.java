@@ -19,14 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()).and().csrf()
-                .disable().authorizeRequests()
-                .antMatchers("/user/all").access("hasRole('ROLE_ADMIN')")
-                .antMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().authenticated().and()
-                .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class)
+        // disable caching
+        http.headers().cacheControl();
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
     }
 
     @Override
