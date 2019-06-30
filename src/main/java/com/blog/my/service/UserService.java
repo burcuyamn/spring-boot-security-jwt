@@ -29,4 +29,7 @@ public class UserService {
         return userRepository.findByUsername(username).get();
     }
 
+    public User findByUsernameAndPassword(String username, String password){
+        return userRepository.findByUsernameAndPassword(username, password).get();
+    }
 }

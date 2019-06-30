@@ -28,4 +28,11 @@ public class UserController {
     public User save(@RequestBody User user){
         return userService.save(user);
     }
+
+//    @GetMapping("/login")
+//    public ResponseEntity<User> login(@PathVariable("username") String username,
+//                                      @PathVariable("password") String password){
+//        User user = userService.findByUsernameAndPassword(username, password);
+//        return new ResponseEntity<User>(user, HttpStatus.OK);
+//    }
 }
