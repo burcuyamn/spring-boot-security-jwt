@@ -29,10 +29,9 @@ public class UserController {
         return userService.save(user);
     }
 
-//    @GetMapping("/login")
-//    public ResponseEntity<User> login(@PathVariable("username") String username,
-//                                      @PathVariable("password") String password){
-//        User user = userService.findByUsernameAndPassword(username, password);
-//        return new ResponseEntity<User>(user, HttpStatus.OK);
-//    }
+    @PostMapping("add/role")
+    public User addRole(@RequestParam("userOid") String useroid,
+                        @RequestParam("roleOid") String roleOid){
+        return userService.addRole(useroid,roleOid);
+    }
 }

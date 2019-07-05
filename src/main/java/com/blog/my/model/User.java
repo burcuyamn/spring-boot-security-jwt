@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "USERS")
 @EntityListeners(AuditingEntityListener.class)
-public class User extends BaseEntity {
+public class User extends BaseEntity{
 
     @Column(name = "USERNAME")
     private String username;
@@ -26,6 +26,11 @@ public class User extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
     public User(){}
+
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 
     public User(String username, String email, String password){
         this.username = username;
