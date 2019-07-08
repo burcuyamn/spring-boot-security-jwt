@@ -19,9 +19,6 @@ public class User extends BaseEntity{
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany
-    private Set<Role> roles;
-
     public User(){}
 
     public User(String username, String password){
@@ -57,13 +54,5 @@ public class User extends BaseEntity{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }

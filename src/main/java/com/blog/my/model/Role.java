@@ -1,17 +1,18 @@
 package com.blog.my.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.Set;
 
 @Entity
 @Table(name = "ROLE")
 public class Role extends BaseEntity {
+
+    @Column
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @Column
+    private String description;
 
     public String getName() {
         return name;
@@ -21,11 +22,11 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
