@@ -1,10 +1,8 @@
 package com.blog.my.model;
 
-import com.blog.my.model.role.Role;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,9 +19,8 @@ public class User extends BaseEntity{
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROLES")
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany
+    private Set<Role> roles;
 
     public User(){}
 

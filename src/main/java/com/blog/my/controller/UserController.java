@@ -28,10 +28,4 @@ public class UserController {
     public User save(@RequestBody User user){
         return userService.save(user);
     }
-
-    @PostMapping("add/role")
-    public User addRole(@RequestParam("userOid") String useroid,
-                        @RequestParam("roleOid") String roleOid){
-        return userService.addRole(useroid,roleOid);
-    }
 }
