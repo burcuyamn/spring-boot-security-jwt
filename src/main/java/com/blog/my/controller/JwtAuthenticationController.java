@@ -32,21 +32,27 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestParam("username") String username,
+                                                       @RequestParam("password")String password) throws Exception {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        authenticate(username, password);
 
         final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
+                .loadUserByUsername(username);
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/register")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> saveUser(@Valid @RequestBody UserDTO user) throws Exception {
+    public ResponseEntity<?> saveUser(@RequestParam("username") String username,
+                                      @RequestParam("password")String password) throws Exception {
+        UserDTO user = new UserDTO();
+        user.setUsername(username);
+        user.setPassword(password);
+
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 
