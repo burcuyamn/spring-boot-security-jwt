@@ -35,7 +35,7 @@ public class JwtAuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestParam("username") String username,
                                                        @RequestParam("password")String password) throws Exception {
 
-        authenticate(username, password);
+        //authenticate(username, password);
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(username);
