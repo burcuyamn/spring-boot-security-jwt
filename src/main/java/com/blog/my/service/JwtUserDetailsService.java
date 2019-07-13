@@ -23,17 +23,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		com.blog.my.model.User user = userRepository.findByUsername(username).get();
-//		if (user == null) {
-//			throw new UsernameNotFoundException("User not found with username: " + username);
-//		}
-//		return new User(user.getUsername(), user.getPassword(),
-//				new ArrayList<>());
-		if ("javainuse".equals(username)) {
-			return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-					new ArrayList<>());
-		} else {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+		com.blog.my.model.User user = userRepository.findByUsername(username).get();
+		return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
+	}
+
+	public void authenticate(UserDetails userDetails, String password){
+		if(!bcryptEncoder.matches(password, userDetails.getPassword())){
+			throw new UsernameNotFoundException("Invalid password");
 		}
 	}
 	
