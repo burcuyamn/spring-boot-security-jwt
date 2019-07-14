@@ -1,4 +1,4 @@
-package com.blog.my.controller.authentication;
+package com.blog.my.model.authentication;
 
 import com.blog.my.model.User;
 

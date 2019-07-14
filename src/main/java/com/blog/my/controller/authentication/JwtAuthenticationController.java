@@ -2,7 +2,7 @@ package com.blog.my.controller.authentication;
 
 import com.blog.my.config.JwtTokenUtil;
 import com.blog.my.dto.UserDTO;
-import com.blog.my.model.JwtResponse;
+import com.blog.my.model.authentication.JwtResponse;
 import com.blog.my.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

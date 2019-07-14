@@ -32,4 +32,8 @@ public class UserService {
     public User findByUsernameAndPassword(String username, String password){
         return userRepository.findByUsernameAndPassword(username, password).get();
     }
+
+    public void deleteByOid(String oid){
+        userRepository.deleteByOid(oid);
+    }
 }

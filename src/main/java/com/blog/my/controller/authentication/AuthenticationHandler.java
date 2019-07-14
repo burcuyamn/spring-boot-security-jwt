@@ -1,5 +1,6 @@
 package com.blog.my.controller.authentication;
 
+import com.blog.my.model.authentication.CurrentUser;
 import com.blog.my.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

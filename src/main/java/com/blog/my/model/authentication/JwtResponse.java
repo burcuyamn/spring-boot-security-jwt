@@ -1,4 +1,4 @@
-package com.blog.my.model;
+package com.blog.my.model.authentication;
 
 import java.io.Serializable;
 

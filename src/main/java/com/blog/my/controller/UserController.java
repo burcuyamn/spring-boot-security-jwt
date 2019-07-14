@@ -1,7 +1,6 @@
 package com.blog.my.controller;
 
 import com.blog.my.model.User;
-import com.blog.my.repository.UserRepository;
 import com.blog.my.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +22,5 @@ public class UserController {
     public ResponseEntity<List<User>> all(){
         List<User> users = userService.findAll();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }
-
-    @PostMapping("/save")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public User save(@RequestBody User user){
-        return userService.save(user);
     }
 }

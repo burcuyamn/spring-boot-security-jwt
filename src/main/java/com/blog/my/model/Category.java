@@ -1,17 +1,21 @@
 package com.blog.my.model;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROLE")
-public class Role extends BaseEntity {
+@Table(name = "CATEGORY")
+@EntityListeners(AuditingEntityListener.class)
+public class Category extends BaseEntity {
 
-    @Column
+    @Column(name = "NAME")
     private String name;
 
-    @Column
+    @Column(name = "DESCRIPTION")
     private String description;
 
     public String getName() {

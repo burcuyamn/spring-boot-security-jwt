@@ -3,7 +3,6 @@ package com.blog.my.service;
 import java.util.ArrayList;
 
 import com.blog.my.dto.UserDTO;
-import com.blog.my.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +15,14 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.blog.my.model.User user = userRepository.findByUsername(username).get();
+		com.blog.my.model.User user = userService.findByUsername(username);
 		return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
 	}
 
@@ -34,9 +33,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 	}
 	
 	public com.blog.my.model.User save(UserDTO user) {
-		com.blog.my.model.User newUser = new com.blog.my.model.User();
+		com.blog.my.model.User newUser = userService.findByUsername(user.getUsername());
+		if(newUser != null){
+			throw new UsernameNotFoundException("Duplicate username");
+		}
+		newUser = new com.blog.my.model.User();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		return userRepository.save(newUser);
+		return userService.save(newUser);
 	}
 }
