@@ -1,4 +1,4 @@
-package com.blog.my.controller;
+package com.blog.my.controller.authentication;
 
 import com.blog.my.config.JwtTokenUtil;
 import com.blog.my.dto.UserDTO;
@@ -26,6 +26,7 @@ public class JwtAuthenticationController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getUsername());
         userDetailsService.authenticate(userDetails, userDTO.getPassword());
+
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
@@ -33,6 +34,7 @@ public class JwtAuthenticationController {
     @PostMapping(value = "/register")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {
+
         UserDTO user = new UserDTO();
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
