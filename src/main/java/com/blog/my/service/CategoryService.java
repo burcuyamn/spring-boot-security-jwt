@@ -3,9 +3,12 @@ package com.blog.my.service;
 import com.blog.my.model.Category;
 import com.blog.my.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class CategoryService {
 
     @Autowired
@@ -23,7 +26,12 @@ public class CategoryService {
         return categoryRepository.findById(oid).get();
     }
 
+    @Transactional
     public void deleteByOid(String oid){
         categoryRepository.deleteByOid(oid);
+    }
+
+    public Category findByName(String name){
+        return categoryRepository.findByName(name);
     }
 }

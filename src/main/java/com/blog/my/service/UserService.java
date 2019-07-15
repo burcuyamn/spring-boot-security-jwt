@@ -2,8 +2,11 @@ package com.blog.my.service;
 
 import com.blog.my.model.User;
 import com.blog.my.repository.UserRepository;
+import com.sun.deploy.security.UserDeclinedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +21,9 @@ public class UserService {
     }
 
     public User save(User user){
+        if(userRepository.findByUsername(user.getUsername()) != null){
+            throw new UserDeclinedException("Duplicate username");
+        }
         return userRepository.save(user);
     }
 

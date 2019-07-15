@@ -18,6 +18,13 @@ public class Category extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    public Category(){}
+
+    public Category(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
