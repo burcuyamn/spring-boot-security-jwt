@@ -4,6 +4,7 @@ import com.blog.my.model.Story;
 import com.blog.my.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,5 +24,10 @@ public class StoryService {
 
     public void save(Story story){
         storyRepository.save(story);
+    }
+
+    @Transactional
+    public void deleteByOid(String oid){
+        storyRepository.deleteByOid(oid);
     }
 }

@@ -1,4 +1,4 @@
-package com.blog.my.controller;
+package com.blog.my.controller.story;
 
 import com.blog.my.model.Story;
 import com.blog.my.service.StoryService;
@@ -32,5 +32,18 @@ public class StoryController {
     private ResponseEntity<?> saveStory(@Valid @RequestBody Story story){
         storyOperations.createNewStory(story);
         return ResponseEntity.ok(new ArrayList<>());
+    }
+
+    @PutMapping("/delete")
+    @ResponseStatus(code = HttpStatus.OK)
+    private void deleteStory(@RequestParam("oid") String oid){
+        storyService.deleteByOid(oid);
+
+    }
+
+    @PutMapping("/update")
+    protected ResponseEntity<Story> updateStory(@Valid @RequestBody Story story){
+
+        return null;
     }
 }

@@ -8,14 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
-    Optional<User> findByUsernameAndPassword(String username, String password);
+    User findByUsernameAndPassword(String username, String password);
 
     @Modifying
     @Query("select u from User u where u.deleted is null")

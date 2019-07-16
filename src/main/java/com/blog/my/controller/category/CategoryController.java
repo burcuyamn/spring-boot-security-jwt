@@ -1,4 +1,4 @@
-package com.blog.my.controller;
+package com.blog.my.controller.category;
 
 import com.blog.my.model.Category;
 import com.blog.my.service.CategoryService;

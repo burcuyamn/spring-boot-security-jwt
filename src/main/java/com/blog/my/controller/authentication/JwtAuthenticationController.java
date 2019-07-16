@@ -21,7 +21,7 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @PostMapping(value = "/authenticate")
+    @PostMapping(value = "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserDTO userDTO) {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getUsername());
@@ -29,16 +29,5 @@ public class JwtAuthenticationController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
-    }
-
-    @PostMapping(value = "/register")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {
-
-        UserDTO user = new UserDTO();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-
-        return ResponseEntity.ok(userDetailsService.save(user));
     }
 }

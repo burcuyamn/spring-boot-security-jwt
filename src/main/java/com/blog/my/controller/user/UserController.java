@@ -1,5 +1,6 @@
-package com.blog.my.controller;
+package com.blog.my.controller.user;
 
+import com.blog.my.dto.UserDTO;
 import com.blog.my.model.User;
 import com.blog.my.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,17 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserOperations userOperations;
+
+    @PostMapping(value = "/register")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {
+        User user = userService.save(userOperations.convertUserDTOToUser(userDTO));
+        UserDTO newUsersDTO =userOperations.convertUserToUserDTO(user);
+        return ResponseEntity.ok(newUsersDTO);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAll(){
