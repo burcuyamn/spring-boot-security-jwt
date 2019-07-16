@@ -18,6 +18,9 @@ public class StoryController {
     @Autowired
     private StoryService storyService;
 
+    @Autowired
+    private StoryOperations storyOperations;
+
     @GetMapping("/all")
     private ResponseEntity<?> getAll(){
         List<Story> stories = storyService.findAll();
@@ -27,7 +30,7 @@ public class StoryController {
     @PostMapping("/save")
     @ResponseStatus(code = HttpStatus.CREATED)
     private ResponseEntity<?> saveStory(@Valid @RequestBody Story story){
-        storyService.save(story);
+        storyOperations.createNewStory(story);
         return ResponseEntity.ok(new ArrayList<>());
     }
 }

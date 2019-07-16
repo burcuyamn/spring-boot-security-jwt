@@ -11,9 +11,15 @@ public class AuthenticationHandler {
     @Autowired
     private UserService userService;
 
-    public CurrentUser currentUser(){
+    public CurrentUser getCurrentClientUser(){
         User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         com.blog.my.model.User user = userService.findByUsername(authUser.getUsername());
         return new CurrentUser(user);
+    }
+
+    public com.blog.my.model.User getCurrentUser (){
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        com.blog.my.model.User user = userService.findByUsername(authUser.getUsername());
+        return user;
     }
 }
