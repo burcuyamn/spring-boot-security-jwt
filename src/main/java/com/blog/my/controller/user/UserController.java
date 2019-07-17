@@ -26,7 +26,7 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {
         User user = userService.save(userOperations.convertUserDTOToUser(userDTO));
-        UserDTO newUsersDTO =userOperations.convertUserToUserDTO(user);
+        UserDTO newUsersDTO = userOperations.convertUserToUserDTO(user);
         return ResponseEntity.ok(newUsersDTO);
     }
 
