@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.security.InvalidParameterException;
 import java.util.Date;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service
 public class StoryOperations {
 
@@ -21,15 +23,9 @@ public class StoryOperations {
     private AuthenticationHandler authenticationHandler;
 
     public void createNewStory(Story story){
-        if(story.getCategory() == null){
-            throw  new InvalidParameterException("category can not be empty");
-        }
-        if(Strings.isNullOrEmpty(story.getTitle())){
-            throw  new InvalidParameterException("title can not be empty");
-        }
-        if(Strings.isNullOrEmpty(story.getBody())){
-            throw  new InvalidParameterException("body can not be empty");
-        }
+        checkNotNull(story.getCategory());
+        checkNotNull(story.getTitle());
+        checkNotNull(story.getBody());
 
         User user = authenticationHandler.getCurrentUser();
         story.setUser(user);

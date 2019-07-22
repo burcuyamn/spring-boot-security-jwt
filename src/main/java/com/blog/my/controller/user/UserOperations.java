@@ -6,6 +6,8 @@ import com.blog.my.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service
 public class UserOperations {
 
@@ -14,6 +16,9 @@ public class UserOperations {
 
 
     public User convertUserDTOToUser(UserDTO userDTO){
+        checkNotNull(userDTO.getUsername());
+        checkNotNull(userDTO.getPassword());
+        checkNotNull(userDTO.getEmail());
         userDTO.setPassword(userDetailsService.encodePassword(userDTO.getPassword()));
         User user = new User();
         user.setUsername(userDTO.getUsername());

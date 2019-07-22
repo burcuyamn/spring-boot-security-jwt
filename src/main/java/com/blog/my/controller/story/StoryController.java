@@ -11,6 +11,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @RestController
 @RequestMapping("story")
 public class StoryController {
@@ -37,6 +39,7 @@ public class StoryController {
     @PutMapping("/delete")
     @ResponseStatus(code = HttpStatus.OK)
     private void deleteStory(@RequestParam("oid") String oid){
+        checkNotNull(oid);
         storyService.deleteByOid(oid);
 
     }
