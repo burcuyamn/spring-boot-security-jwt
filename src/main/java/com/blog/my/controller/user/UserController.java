@@ -26,7 +26,7 @@ public class UserController {
     private UserOperations userOperations;
 
     @Autowired
-    private RedisUserRepository userRepository;
+    private RedisUserRepository redisUserRepository;
 
     @PostMapping(value = "/register")
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -44,12 +44,12 @@ public class UserController {
 
     @PostMapping("redis")
     public String save(@RequestParam String name){
-        userRepository.save(name);
+        redisUserRepository.save(name);
         return name;
     }
 
     @GetMapping("redis")
     public String get(@RequestParam Integer id){
-        return userRepository.get(id);
+        return redisUserRepository.get(id);
     }
 }
