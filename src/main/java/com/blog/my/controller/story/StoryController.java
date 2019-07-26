@@ -43,10 +43,4 @@ public class StoryController {
         storyService.deleteByOid(oid);
 
     }
-
-    @PutMapping("/update")
-    protected ResponseEntity<Story> updateStory(@Valid @RequestBody Story story){
-
-        return null;
-    }
 }

@@ -8,6 +8,7 @@ import java.util.Date;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
+
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
