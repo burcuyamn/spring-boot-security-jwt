@@ -1,13 +1,13 @@
 package com.blog.my.controller.user;
 
+import com.blog.my.cache.CacheMain;
 import com.blog.my.dto.UserDTO;
 import com.blog.my.model.User;
+import com.blog.my.repository.Ex;
 import com.blog.my.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +24,9 @@ public class UserController {
     @Autowired
     private UserOperations userOperations;
 
+    @Autowired
+    private Ex ex;
+
     @PostMapping(value = "/register")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {
@@ -36,5 +39,18 @@ public class UserController {
     public ResponseEntity<List<User>> getAll(){
         List<User> users = userService.findAll();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/deneme")
+    public void deneme(){
+        CacheMain cacheMain = new CacheMain();
+        cacheMain.addSets();
+        cacheMain.addHash();
+    }
+
+    @GetMapping("/deneme2")
+    public void deneme2(){
+        List<User> users = ex.findAllUser();
+        System.out.println(users);
     }
 }
