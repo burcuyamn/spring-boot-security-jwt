@@ -1,4 +1,4 @@
-package com.blog.my.dto;
+package com.blog.my.dto.request;
 
 public class UserDTO {
     private String oid;

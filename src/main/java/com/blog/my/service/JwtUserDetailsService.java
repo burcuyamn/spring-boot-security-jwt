@@ -2,7 +2,6 @@ package com.blog.my.service;
 
 import java.util.ArrayList;
 
-import com.blog.my.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

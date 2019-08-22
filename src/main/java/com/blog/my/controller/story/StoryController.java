@@ -1,5 +1,6 @@
 package com.blog.my.controller.story;
 
+import com.blog.my.dto.request.StoryDTO;
 import com.blog.my.model.Story;
 import com.blog.my.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class StoryController {
 
     @PostMapping("/save")
     @ResponseStatus(code = HttpStatus.CREATED)
-    private ResponseEntity<?> saveStory(@Valid @RequestBody Story story){
+    private ResponseEntity<?> saveStory(@Valid @RequestBody StoryDTO story){
         storyOperations.createNewStory(story);
         return ResponseEntity.ok(new ArrayList<>());
     }
@@ -41,6 +42,11 @@ public class StoryController {
     private void deleteStory(@RequestParam("oid") String oid){
         checkNotNull(oid);
         storyService.deleteByOid(oid);
+    }
 
+    @PostMapping("/update")
+    @ResponseStatus(code = HttpStatus.OK)
+    private void updateStory(@Valid @RequestBody StoryDTO story){
+        storyService.update(story);
     }
 }

@@ -1,5 +1,6 @@
 package com.blog.my.repository;
 
+import com.blog.my.model.Category;
 import com.blog.my.model.Story;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,6 +18,10 @@ public interface StoryRepository extends JpaRepository<Story, String> {
     List<Story> findAll();
 
     @Modifying
-    @Query("update Story set deleted = current_date where oid =:oid ")
+    @Query("update Story set deleted = current_date, lastUpdated = current_date where oid =:oid ")
     void deleteByOid(@Param("oid") String oid);
+
+    @Modifying
+    @Query("update Story set lastUpdated = current_date, category =:category, title =:title, body =:body  where oid =:oid ")
+    void update(@Param("oid") String oid, @Param("category") String category, @Param("title") String title, @Param("body") String body );
 }

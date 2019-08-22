@@ -1,7 +1,7 @@
 package com.blog.my.controller.user;
 
 import com.blog.my.cache.CacheMain;
-import com.blog.my.dto.UserDTO;
+import com.blog.my.dto.request.UserDTO;
 import com.blog.my.model.User;
 import com.blog.my.repository.Ex;
 import com.blog.my.service.UserService;
