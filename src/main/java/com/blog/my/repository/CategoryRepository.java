@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, String> {
@@ -20,6 +19,6 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
     List<Category> findAll();
 
     @Modifying
-    @Query("update Category set deleted = current_date where oid =:oid ")
+    @Query("update Category set lastUpdated = current_timestamp, deleted = current_timestamp where oid =:oid ")
     void deleteByOid(@Param("oid") String oid);
 }

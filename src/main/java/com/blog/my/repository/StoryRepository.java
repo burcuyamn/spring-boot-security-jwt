@@ -18,10 +18,10 @@ public interface StoryRepository extends JpaRepository<Story, String> {
     List<Story> findAll();
 
     @Modifying
-    @Query("update Story set deleted = current_date, lastUpdated = current_date where oid =:oid ")
+    @Query("update Story set lastUpdated = current_timestamp, deleted = current_date, lastUpdated = current_date where oid =:oid ")
     void deleteByOid(@Param("oid") String oid);
 
     @Modifying
-    @Query("update Story set lastUpdated = current_date, category =:category, title =:title, body =:body  where oid =:oid ")
-    void update(@Param("oid") String oid, @Param("category") String category, @Param("title") String title, @Param("body") String body );
+    @Query("update Story set lastUpdated = current_timestamp, category =:category, title =:title, body =:body  where oid =:oid ")
+    void update(@Param("oid") String oid, @Param("category") Category category, @Param("title") String title, @Param("body") String body );
 }

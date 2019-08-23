@@ -2,8 +2,10 @@ package com.blog.my.controller.story;
 
 import com.blog.my.controller.authentication.AuthenticationHandler;
 import com.blog.my.dto.request.StoryDTO;
+import com.blog.my.model.Category;
 import com.blog.my.model.Story;
 import com.blog.my.model.User;
+import com.blog.my.service.CategoryService;
 import com.blog.my.service.StoryService;
 import org.fest.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,32 +25,34 @@ public class StoryOperations {
     @Autowired
     private AuthenticationHandler authenticationHandler;
 
-    public void createNewStory(StoryDTO storyDTO){
+    @Autowired
+    private CategoryService categoryService;
+
+    public void save(StoryDTO storyDTO){
         checkNotNull(storyDTO.getCategoryOid());
         checkNotNull(storyDTO.getTitle());
         checkNotNull(storyDTO.getBody());
 
+        Category category = categoryService.findById(storyDTO.getCategoryOid());
         User user = authenticationHandler.getCurrentUser();
 
-        Story story = convertStoryDTOToStory(storyDTO);
-        storyDTO.setUserOid(user.getOid());
-        //story.setUser(user);
-        story.setCreatedDate(new Date());
-
+        Story story = new Story(user, category, storyDTO.getTitle(), storyDTO.getBody(), new Date());
         storyService.save(story);
     }
 
-    public void updateStory(StoryDTO story){
-        checkNotNull(story.getOid());
-        checkNotNull(story.getCategoryOid());
-        checkNotNull(story.getTitle());
-        checkNotNull(story.getBody());
+    public void update(StoryDTO storyDTO){
+        checkNotNull(storyDTO.getOid());
+        checkNotNull(storyDTO.getCategoryOid());
+        checkNotNull(storyDTO.getTitle());
+        checkNotNull(storyDTO.getBody());
+
+        Category category = categoryService.findById(storyDTO.getCategoryOid());
+
+        Story story = storyService.findById(storyDTO.getOid());
+        story.setCategory(category);
+        story.setTitle(storyDTO.getTitle());
+        story.setBody(storyDTO.getBody());
 
         storyService.update(story);
-    }
-
-    public Story convertStoryDTOToStory(StoryDTO storyDTO){
-        Story story = new Story();
-        return story;
     }
 }

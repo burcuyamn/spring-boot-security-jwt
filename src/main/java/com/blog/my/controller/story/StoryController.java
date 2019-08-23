@@ -32,21 +32,21 @@ public class StoryController {
 
     @PostMapping("/save")
     @ResponseStatus(code = HttpStatus.CREATED)
-    private ResponseEntity<?> saveStory(@Valid @RequestBody StoryDTO story){
-        storyOperations.createNewStory(story);
+    private ResponseEntity<?> save(@Valid @RequestBody StoryDTO storyDTO){
+        storyOperations.save(storyDTO);
         return ResponseEntity.ok(new ArrayList<>());
     }
 
     @PutMapping("/delete")
     @ResponseStatus(code = HttpStatus.OK)
-    private void deleteStory(@RequestParam("oid") String oid){
+    private void delete(@RequestParam("oid") String oid){
         checkNotNull(oid);
         storyService.deleteByOid(oid);
     }
 
     @PostMapping("/update")
     @ResponseStatus(code = HttpStatus.OK)
-    private void updateStory(@Valid @RequestBody StoryDTO story){
-        storyService.update(story);
+    private void update(@Valid @RequestBody StoryDTO storyDTO){
+        storyOperations.update(storyDTO);
     }
 }

@@ -25,14 +25,14 @@ public class CategoryController {
 
     @PostMapping("/save")
     @ResponseStatus(code = HttpStatus.CREATED)
-    private ResponseEntity<?> saveCategory(@Valid @RequestBody Category category){
+    private ResponseEntity<?> save(@Valid @RequestBody Category category){
         categoryService.save(category);
         return ResponseEntity.ok(categoryService.findAll());
     }
 
     @PutMapping("/delete")
     @ResponseStatus(code = HttpStatus.OK)
-    private void deleteCategory(@RequestParam("oid") String  oid){
+    private void delete(@RequestParam("oid") String oid){
         categoryService.deleteByOid(oid);
     }
 }

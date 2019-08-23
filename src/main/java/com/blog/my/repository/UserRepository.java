@@ -21,6 +21,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findAll();
 
     @Modifying
-    @Query("update User set deleted = current_date where oid =:oid ")
+    @Query("update User set lastUpdated = current_timestamp, deleted = current_timestamp where oid =:oid ")
     void deleteByOid(@Param("oid") String oid);
 }

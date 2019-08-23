@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -24,21 +22,16 @@ public class UserController {
     @Autowired
     private UserOperations userOperations;
 
-    @Autowired
-    private Ex ex;
-
-    @PostMapping(value = "/register")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {
-        User user = userService.save(userOperations.convertUserDTOToUser(userDTO));
-        UserDTO newUsersDTO = userOperations.convertUserToUserDTO(user);
-        return ResponseEntity.ok(newUsersDTO);
-    }
-
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAll(){
         List<User> users = userService.findAll();
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/register")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void register(@RequestBody UserDTO userDTO) {
+    userOperations.save(userDTO);
     }
 
     @GetMapping("/deneme")
@@ -46,11 +39,5 @@ public class UserController {
         CacheMain cacheMain = new CacheMain();
         cacheMain.addSets();
         cacheMain.addHash();
-    }
-
-    @GetMapping("/deneme2")
-    public void deneme2(){
-        List<User> users = ex.findAllUser();
-        System.out.println(users);
     }
 }
