@@ -3,6 +3,7 @@ package com.blog.my.controller.story;
 import com.blog.my.dto.request.StoryDTO;
 import com.blog.my.model.Story;
 import com.blog.my.service.StoryService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class StoryController {
 
     @PostMapping("/save")
     @ResponseStatus(code = HttpStatus.CREATED)
-    private ResponseEntity<?> save(@Valid @RequestBody StoryDTO storyDTO){
+    private ResponseEntity<?> save(@Valid @RequestBody StoryDTO storyDTO) throws JsonProcessingException {
         storyOperations.save(storyDTO);
         return ResponseEntity.ok(new ArrayList<>());
     }
@@ -46,7 +47,7 @@ public class StoryController {
 
     @PostMapping("/update")
     @ResponseStatus(code = HttpStatus.OK)
-    private void update(@Valid @RequestBody StoryDTO storyDTO){
+    private void update(@Valid @RequestBody StoryDTO storyDTO) throws JsonProcessingException {
         storyOperations.update(storyDTO);
     }
 }

@@ -30,13 +30,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("Invalid password");
 		}
 	}
-	
-//	public com.blog.my.model.User save(UserDTO user) {
-//		com.blog.my.model.User newUser = new com.blog.my.model.User();
-//		newUser.setUsername(user.getUsername());
-//		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-//		return userService.save(newUser);
-//	}
 
 	public String encodePassword(String password){
 		return bcryptEncoder.encode(password);

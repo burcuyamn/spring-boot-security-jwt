@@ -1,9 +1,7 @@
 package com.blog.my.controller.user;
 
-import com.blog.my.cache.CacheMain;
 import com.blog.my.dto.request.UserDTO;
 import com.blog.my.model.User;
-import com.blog.my.repository.Ex;
 import com.blog.my.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,12 +30,5 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void register(@RequestBody UserDTO userDTO) {
     userOperations.save(userDTO);
-    }
-
-    @GetMapping("/deneme")
-    public void deneme(){
-        CacheMain cacheMain = new CacheMain();
-        cacheMain.addSets();
-        cacheMain.addHash();
     }
 }

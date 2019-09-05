@@ -1,13 +1,16 @@
 package com.blog.my.dto.request;
 
+import com.blog.my.model.StoryBody;
+
 import java.util.Date;
+import java.util.List;
 
 public class StoryDTO {
     private String oid;
     private String userOid;
     private String categoryOid;
     private String title;
-    private String body;
+    private List<StoryBody> body;
     private Date createdDate;
 
     public String getOid() {
@@ -42,11 +45,11 @@ public class StoryDTO {
         this.title = title;
     }
 
-    public String getBody() {
+    public List<StoryBody> getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(List<StoryBody> body) {
         this.body = body;
     }
 
