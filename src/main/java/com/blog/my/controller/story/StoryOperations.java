@@ -64,25 +64,4 @@ public class StoryOperations {
 
         storyService.update(story);
     }
-
-    public String create(String imageString) throws IOException {
-        byte[] base64Bytes = DatatypeConverter.parseBase64Binary(imageString);
-        String basePath = "";
-        String path = createPath(basePath);
-        String uniqueID = UUID.randomUUID().toString();
-        String uniquePath =  path + "/" + uniqueID + ".jpg";
-        write( uniquePath, base64Bytes);
-        return  "/" + basePath + "/" + uniqueID + ".jpg";
-    }
-    public static void write(String path, byte[] bytes) throws IOException {
-        File f = new File(path);
-        java.nio.file.Files.write(f.toPath(), bytes);
-    }
-
-    public static String createPath(String subPath){
-        String path = "";
-        File file = new File(path + subPath);
-        file.mkdirs();
-        return file.getAbsolutePath();
-    }
 }
